@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import time
 
-st.set_page_config(page_title="Game Zone", page_icon="🎮", layout="wide")
+st.set_page_config(page_title="Ms Ocha Class", page_icon="🎮", layout="wide")
 
 st.markdown("""
     <style>
