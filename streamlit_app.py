@@ -144,7 +144,7 @@ def play_hangman():
                 st.rerun()
 
 def home_page():
-    st.title("🎮 Game Zone")
+    st.title("🎮 Ms Ocha Class")
     st.markdown("<p style='text-align:center;font-size:18px;color:#666;'>Pilih game dan jawab soal dengan seru!</p>", unsafe_allow_html=True)
     
     cols = st.columns(3)
