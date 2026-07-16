@@ -117,10 +117,10 @@ def play_hangman():
                     for idx, char in enumerate(st.session_state.hangman_word):
                         if char == letter:
                             st.session_state.hangman_guessed[idx] = letter
-                    st.success("✅ Benar!")
+                    st.success("✅ Correct!")
                 else:
                     st.session_state.hangman_tries -= 1
-                    st.error("❌ Salah!")
+                    st.error("❌ Incorrect")
                 
                 time.sleep(0.3)
                 st.rerun()
@@ -128,7 +128,7 @@ def play_hangman():
         if '_' not in st.session_state.hangman_guessed:
             st.balloons()
             st.markdown("<h2 style='text-align:center;color:#4CAF50;'>🎉 SELAMAT! ANDA MENANG!</h2>", unsafe_allow_html=True)
-            if st.button("🔄 Main Lagi", use_container_width=True):
+            if st.button("🔄 Play again", use_container_width=True):
                 st.session_state.hangman_word = random.choice(WORDS)
                 st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
                 st.session_state.hangman_tries = 6
@@ -136,7 +136,7 @@ def play_hangman():
                 st.rerun()
         elif st.session_state.hangman_tries == 0:
             st.markdown(f"<h2 style='text-align:center;color:#F44336;'>💀 KALAH! Kata: {st.session_state.hangman_word.upper()}</h2>", unsafe_allow_html=True)
-            if st.button("🔄 Coba Lagi", use_container_width=True):
+            if st.button("🔄 Try again", use_container_width=True):
                 st.session_state.hangman_word = random.choice(WORDS)
                 st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
                 st.session_state.hangman_tries = 6
@@ -166,7 +166,7 @@ def home_page():
                 """, unsafe_allow_html=True)
                 
                 if game['status'] == 'Aktif':
-                    if st.button(f"▶️ Main", key=f"btn_{game['id']}", use_container_width=True):
+                    if st.button(f"▶️ Play", key=f"btn_{game['id']}", use_container_width=True):
                         st.session_state.page = 'play'
                         st.session_state.game = game['id']
                         st.rerun()
