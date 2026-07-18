@@ -64,7 +64,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 GAMES = [
-    {'id': 'hangman', 'name': 'Hangman', 'icon': '🔤', 'color': '#4CAF50', 'status': 'Active'},
+    {'id': 'hangman', 'name': 'Hangman', 'icon': '🪢', 'color': '#4CAF50', 'status': 'Active'},
     {'id': 'math', 'name': 'Quiz Matematika', 'icon': '📝', 'color': '#FF9800', 'status': 'Coming Soon'},
     {'id': 'vocab', 'name': 'Kosakata', 'icon': '📚', 'color': '#2196F3', 'status': 'Coming Soon'},
     {'id': 'science', 'name': 'Quiz Sains', 'icon': '🔬', 'color': '#9C27B0', 'status': 'Coming Soon'},
