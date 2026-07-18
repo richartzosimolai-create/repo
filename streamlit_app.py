@@ -192,7 +192,7 @@ def play_hangman():
             </div>
         """.format(st.session_state.hangman_word.upper()), unsafe_allow_html=True)
 
-        if st.button("🔄 Coba Lagi", use_container_width=True):
+        if st.button("🔄 Try again", use_container_width=True):
             st.session_state.hangman_word = random.choice(WORDS)
             st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
             st.session_state.hangman_tries = 6
@@ -251,7 +251,7 @@ def play_hangman():
 
 def home_page():
     st.title("🎮 Ms ocha Class")
-    st.markdown("<p style='text-align:center;font-size:18px;color:#666;'>Pilih game dan jawab soal dengan seru!</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;font-size:18px;color:#666;'>Choose a game and answer questions for fun!</p>", unsafe_allow_html=True)
 
     cols = st.columns(3)
 
@@ -287,7 +287,7 @@ def main():
             play_hangman()
         else:
             st.title("⏳ Victor")
-            st.markdown("<p style='text-align:center;font-size:20px;'>Game ini masih dalam pengembangan!</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align:center;font-size:20px;'>Stay tuned!</p>", unsafe_allow_html=True)
             if st.button("⬅️ Back"):
                 st.session_state.page = 'home'
                 st.rerun()
