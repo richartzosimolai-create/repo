@@ -167,8 +167,8 @@ def play_hangman():
         st.balloons()
         st.markdown("""
             <div style='text-align:center;padding:30px;background:#d4edda;border-radius:20px;border:3px solid #4CAF50;'>
-                <h1 style='color:#4CAF50;font-size:3em;'>🎉 SELAMAT!</h1>
-                <h2 style='color:#155724;'>ANDA MENANG!</h2>
+                <h1 style='color:#4CAF50;font-size:3em;'>🎉 Congratulation!</h1>
+                <h2 style='color:#155724;'>You win the game!</h2>
                 <p style='font-size:1.5em;'>Kata: <strong>{}</strong></p>
             </div>
         """.format(st.session_state.hangman_word.upper()), unsafe_allow_html=True)
@@ -187,7 +187,7 @@ def play_hangman():
         st.session_state.hangman_game_over = True
         st.markdown("""
             <div style='text-align:center;padding:30px;background:#f8d7da;border-radius:20px;border:3px solid #f44336;'>
-                <h1 style='color:#f44336;font-size:3em;'>💀 KALAH!</h1>
+                <h1 style='color:#f44336;font-size:3em;'>💀 You lose !</h1>
                 <h2 style='color:#721c24;'>Kata yang benar: <strong>{}</strong></h2>
             </div>
         """.format(st.session_state.hangman_word.upper()), unsafe_allow_html=True)
@@ -211,7 +211,7 @@ def play_hangman():
         st.code(HANGMAN_PICS[index], language='text')
 
     with col2:
-        st.markdown("### 📝 Kata")
+        st.markdown("### 📝 The word:")
         display = ' '.join(st.session_state.hangman_guessed)
         st.markdown(f"<h1 style='text-align:center;letter-spacing:20px;font-size:3em;'>{display}</h1>", unsafe_allow_html=True)
 
@@ -220,12 +220,12 @@ def play_hangman():
 
         if st.session_state.hangman_used:
             used = ', '.join(sorted(st.session_state.hangman_used)).upper()
-            st.markdown(f"<p style='text-align:center;font-size:16px;color:#666;'>❌ Huruf terpakai: {used}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='text-align:center;font-size:16px;color:#666;'>❌ the letter that used: {used}</p>", unsafe_allow_html=True)
         else:
-            st.markdown("<p style='text-align:center;font-size:16px;color:#666;'>❌ Huruf terpakai: belum ada</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align:center;font-size:16px;color:#666;'>❌ The letter that used: nothing</p>", unsafe_allow_html=True)
 
     st.markdown("---")
-    st.markdown("### 🔤 Pilih Huruf")
+    st.markdown("### 🔤 Choose a letter")
 
     cols = st.columns(7)
     letters = 'abcdefghijklmnopqrstuvwxyz'
@@ -272,7 +272,7 @@ def home_page():
                 """, unsafe_allow_html=True)
 
                 if game['status'] == 'Aktif':
-                    if st.button(f"▶️ Main", key=f"btn_{game['id']}", use_container_width=True):
+                    if st.button(f"▶️ Play", key=f"btn_{game['id']}", use_container_width=True):
                         st.session_state.page = 'play'
                         st.session_state.game = game['id']
                         st.rerun()
@@ -286,7 +286,7 @@ def main():
         if st.session_state.game == 'hangman':
             play_hangman()
         else:
-            st.title("⏳ Dalam Pengembangan")
+            st.title("⏳ Victor")
             st.markdown("<p style='text-align:center;font-size:20px;'>Game ini masih dalam pengembangan!</p>", unsafe_allow_html=True)
             if st.button("⬅️ Back"):
                 st.session_state.page = 'home'
