@@ -60,24 +60,6 @@ st.markdown("""
         margin: 10px 0;
         white-space: pre;
     }
-    .btn-main {
-        background: #4CAF50 !important;
-        color: white !important;
-        border-radius: 30px !important;
-        height: 50px !important;
-    }
-    .btn-main:hover {
-        background: #45a049 !important;
-    }
-    .btn-danger {
-        background: #f44336 !important;
-        color: white !important;
-        border-radius: 30px !important;
-        height: 50px !important;
-    }
-    .btn-danger:hover {
-        background: #d32f2f !important;
-    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -90,9 +72,8 @@ GAMES = [
     {'id': 'geo', 'name': 'Quiz Geografi', 'icon': '🌍', 'color': '#00BCD4', 'status': 'Coming Soon'},
 ]
 
-WORDS = ['apel', 'kucing', 'buku', 'meja', 'kursi', 'lampu', 'pohon', 'bunga', 'mobil', 'sepatu', 'sekolah', 'kesehatan', 'perpustakaan']
+WORDS = ['apel', 'kucing', 'buku', 'meja', 'kursi', 'lampu', 'pohon', 'bunga', 'mobil', 'sepatu', 'sekolah', 'kesehatan']
 
-# ============ GAMBAR HANGMAN ============
 HANGMAN_PICS = [
     """
        _______
@@ -154,16 +135,6 @@ HANGMAN_PICS = [
       |
     __|_________
     """,
-    """
-       _______
-      |/      |
-      |      (_)
-      |      /|\\
-      |       |
-      |      / \\
-      |
-    __|_________
-    """
 ]
 
 if 'page' not in st.session_state:
@@ -181,17 +152,17 @@ def init_hangman():
 
 def play_hangman():
     st.title("🔤 Hangman")
-    
-    col1, col2, col3 = st.columns([1,5,1])
+
+    col1, col2, col3 = st.columns([1, 5, 1])
     with col2:
         if st.button("⬅️ Back", use_container_width=True):
             st.session_state.page = 'home'
             st.rerun()
-    
+
     init_hangman()
-    
-    # Cek game over
-    if '_' not in st.session_state.hangman_guessed:
+
+    # Cek MENANG
+    if '_' not in st.session_state.hangman_guessed and st.session_state.hangman_tries > 0:
         st.session_state.hangman_game_over = True
         st.balloons()
         st.markdown("""
@@ -201,8 +172,8 @@ def play_hangman():
                 <p style='font-size:1.5em;'>Kata: <strong>{}</strong></p>
             </div>
         """.format(st.session_state.hangman_word.upper()), unsafe_allow_html=True)
-        
-        if st.button("🔄 Play again", use_container_width=True):
+
+        if st.button("🔄 Play againn", use_container_width=True):
             st.session_state.hangman_word = random.choice(WORDS)
             st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
             st.session_state.hangman_tries = 6
@@ -210,17 +181,18 @@ def play_hangman():
             st.session_state.hangman_game_over = False
             st.rerun()
         return
-    
+
+    # Cek KALAH
     if st.session_state.hangman_tries == 0:
         st.session_state.hangman_game_over = True
         st.markdown("""
             <div style='text-align:center;padding:30px;background:#f8d7da;border-radius:20px;border:3px solid #f44336;'>
-                <h1 style='color:#f44336;font-size:3em;'>💀 You lose!</h1>
+                <h1 style='color:#f44336;font-size:3em;'>💀 KALAH!</h1>
                 <h2 style='color:#721c24;'>Kata yang benar: <strong>{}</strong></h2>
             </div>
         """.format(st.session_state.hangman_word.upper()), unsafe_allow_html=True)
-        
-        if st.button("🔄 Try again", use_container_width=True):
+
+        if st.button("🔄 Coba Lagi", use_container_width=True):
             st.session_state.hangman_word = random.choice(WORDS)
             st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
             st.session_state.hangman_tries = 6
@@ -228,43 +200,43 @@ def play_hangman():
             st.session_state.hangman_game_over = False
             st.rerun()
         return
-    
+
     col1, col2 = st.columns([1, 1])
-    
+
     with col1:
-        # TAMPILAN GAMBAR HANGMAN
-        st.markdown("### 🎨 Status Hangman")
-       st.code(HANGMAN_PICS[min(6 - st.session_state.hangman_tries, 5)], language='text')
-    
+        st.markdown("### 🎨  Hangman")
+        index = 6 - st.session_state.hangman_tries
+        if index > 5:
+            index = 5
+        st.code(HANGMAN_PICS[index], language='text')
+
     with col2:
         st.markdown("### 📝 Kata")
         display = ' '.join(st.session_state.hangman_guessed)
         st.markdown(f"<h1 style='text-align:center;letter-spacing:20px;font-size:3em;'>{display}</h1>", unsafe_allow_html=True)
-        
-        # Nyawa
+
         nyawa = '❤️' * st.session_state.hangman_tries
         st.markdown(f"<p style='text-align:center;font-size:22px;'>Nyawa: {nyawa}</p>", unsafe_allow_html=True)
-        
-        # Huruf terpakai
+
         if st.session_state.hangman_used:
             used = ', '.join(sorted(st.session_state.hangman_used)).upper()
             st.markdown(f"<p style='text-align:center;font-size:16px;color:#666;'>❌ Huruf terpakai: {used}</p>", unsafe_allow_html=True)
         else:
             st.markdown("<p style='text-align:center;font-size:16px;color:#666;'>❌ Huruf terpakai: belum ada</p>", unsafe_allow_html=True)
-    
+
     st.markdown("---")
-    st.markdown("### 🔤 Select a letter")
-    
+    st.markdown("### 🔤 Pilih Huruf")
+
     cols = st.columns(7)
     letters = 'abcdefghijklmnopqrstuvwxyz'
-    
+
     for i, letter in enumerate(letters):
         col = cols[i % 7]
         disabled = letter in st.session_state.hangman_used or st.session_state.hangman_tries == 0 or '_' not in st.session_state.hangman_guessed
-        
+
         if col.button(letter.upper(), key=f"letter_{letter}", disabled=disabled, use_container_width=True):
             st.session_state.hangman_used.append(letter)
-            
+
             if letter in st.session_state.hangman_word:
                 for idx, char in enumerate(st.session_state.hangman_word):
                     if char == letter:
@@ -272,22 +244,22 @@ def play_hangman():
                 st.success("✅ Correct!")
             else:
                 st.session_state.hangman_tries -= 1
-                st.error("❌ Incorrect")
-            
+                st.error("❌ Incorrect! -1 ❤️ ")
+
             time.sleep(0.3)
             st.rerun()
 
 def home_page():
-    st.title("🎮 Ms oCha class")
+    st.title("🎮 Ms ocha Class")
     st.markdown("<p style='text-align:center;font-size:18px;color:#666;'>Pilih game dan jawab soal dengan seru!</p>", unsafe_allow_html=True)
-    
+
     cols = st.columns(3)
-    
+
     for idx, game in enumerate(GAMES):
         with cols[idx % 3]:
             with st.container():
                 status_class = "badge-active" if game['status'] == 'Aktif' else "badge-coming"
-                
+
                 st.markdown(f"""
                     <div class="game-card">
                         <div class="circle" style="background:linear-gradient(135deg, {game['color']}, {game['color']}dd);">
@@ -298,9 +270,9 @@ def home_page():
                         <span class="badge {status_class}">{game['status']}</span>
                     </div>
                 """, unsafe_allow_html=True)
-                
+
                 if game['status'] == 'Aktif':
-                    if st.button(f"▶️ Play", key=f"btn_{game['id']}", use_container_width=True):
+                    if st.button(f"▶️ Main", key=f"btn_{game['id']}", use_container_width=True):
                         st.session_state.page = 'play'
                         st.session_state.game = game['id']
                         st.rerun()
