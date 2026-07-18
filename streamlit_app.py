@@ -64,7 +64,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 GAMES = [
-    {'id': 'hangman', 'name': 'Hangman', 'icon': '🔤', 'color': '#4CAF50', 'status': 'Aktif'},
+    {'id': 'hangman', 'name': 'Hangman', 'icon': '🔤', 'color': '#4CAF50', 'status': 'Active'},
     {'id': 'math', 'name': 'Quiz Matematika', 'icon': '📝', 'color': '#FF9800', 'status': 'Coming Soon'},
     {'id': 'vocab', 'name': 'Kosakata', 'icon': '📚', 'color': '#2196F3', 'status': 'Coming Soon'},
     {'id': 'science', 'name': 'Quiz Sains', 'icon': '🔬', 'color': '#9C27B0', 'status': 'Coming Soon'},
@@ -216,7 +216,7 @@ def play_hangman():
         st.markdown(f"<h1 style='text-align:center;letter-spacing:20px;font-size:3em;'>{display}</h1>", unsafe_allow_html=True)
 
         nyawa = '❤️' * st.session_state.hangman_tries
-        st.markdown(f"<p style='text-align:center;font-size:22px;'>Nyawa: {nyawa}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='text-align:center;font-size:22px;'>Live: {nyawa}</p>", unsafe_allow_html=True)
 
         if st.session_state.hangman_used:
             used = ', '.join(sorted(st.session_state.hangman_used)).upper()
@@ -258,7 +258,7 @@ def home_page():
     for idx, game in enumerate(GAMES):
         with cols[idx % 3]:
             with st.container():
-                status_class = "badge-active" if game['status'] == 'Aktif' else "badge-coming"
+                status_class = "badge-active" if game['status'] == 'Active' else "badge-coming"
 
                 st.markdown(f"""
                     <div class="game-card">
@@ -271,7 +271,7 @@ def home_page():
                     </div>
                 """, unsafe_allow_html=True)
 
-                if game['status'] == 'Aktif':
+                if game['status'] == 'Active':
                     if st.button(f"▶️ Play", key=f"btn_{game['id']}", use_container_width=True):
                         st.session_state.page = 'play'
                         st.session_state.game = game['id']
