@@ -72,7 +72,7 @@ GAMES = [
     {'id': 'geo', 'name': 'Quiz Geografi', 'icon': '🌍', 'color': '#00BCD4', 'status': 'Coming Soon'},
 ]
 
-WORDS = ['Victor']
+WORDS = ['victor']
 
 HANGMAN_PICS = [
     """
