@@ -169,7 +169,7 @@ def play_hangman():
             <div style='text-align:center;padding:30px;background:#d4edda;border-radius:20px;border:3px solid #4CAF50;'>
                 <h1 style='color:#4CAF50;font-size:3em;'>🎉 Congratulation!</h1>
                 <h2 style='color:#155724;'>You win the game!</h2>
-                <p style='font-size:1.5em;'>Kata: <strong>{}</strong></p>
+                <p style='font-size:1.5em;'>The word: <strong>{}</strong></p>
             </div>
         """.format(st.session_state.hangman_word.upper()), unsafe_allow_html=True)
 
@@ -188,7 +188,7 @@ def play_hangman():
         st.markdown("""
             <div style='text-align:center;padding:30px;background:#f8d7da;border-radius:20px;border:3px solid #f44336;'>
                 <h1 style='color:#f44336;font-size:3em;'>💀 You lose !</h1>
-                <h2 style='color:#721c24;'>Kata yang benar: <strong>{}</strong></h2>
+                <h2 style='color:#721c24;'>The correct word: <strong>{}</strong></h2>
             </div>
         """.format(st.session_state.hangman_word.upper()), unsafe_allow_html=True)
 
