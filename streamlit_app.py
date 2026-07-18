@@ -72,7 +72,7 @@ GAMES = [
     {'id': 'geo', 'name': 'Quiz Geografi', 'icon': '🌍', 'color': '#00BCD4', 'status': 'Coming Soon'},
 ]
 
-WORDS = ['apel', 'kucing', 'buku', 'meja', 'kursi', 'lampu', 'pohon', 'bunga', 'mobil', 'sepatu', 'sekolah', 'kesehatan']
+WORDS = ['Victor']
 
 HANGMAN_PICS = [
     """
