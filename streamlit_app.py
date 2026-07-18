@@ -234,7 +234,7 @@ def play_hangman():
     with col1:
         # TAMPILAN GAMBAR HANGMAN
         st.markdown("### 🎨 Status Hangman")
-        st.code(HANGMAN_PICS[6 - st.session_state.hangman_tries], language='text')
+       st.code(HANGMAN_PICS[min(6 - st.session_state.hangman_tries, 5)], language='text')
     
     with col2:
         st.markdown("### 📝 Kata")
