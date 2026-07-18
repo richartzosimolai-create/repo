@@ -161,7 +161,7 @@ def play_hangman():
 
     init_hangman()
 
-    # Cek MENANG
+    # cek menang
     if '_' not in st.session_state.hangman_guessed and st.session_state.hangman_tries > 0:
         st.session_state.hangman_game_over = True
         st.balloons()
@@ -182,7 +182,7 @@ def play_hangman():
             st.rerun()
         return
 
-    # Cek KALAH
+    # cek kalah
     if st.session_state.hangman_tries == 0:
         st.session_state.hangman_game_over = True
         st.markdown("""
