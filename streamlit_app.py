@@ -155,12 +155,21 @@ def play_hangman():
 
     col1, col2, col3 = st.columns([1, 5, 1])
     with col2:
-        if st.button("⬅️ Back", use_container_width=True):
-            st.session_state.page = 'home'
-            st.rerun()
+        if st.button("⬅️ Kembali", use_container_width=True):
+           st.session_state.hangman_word = random.choice(WORDS)
+           st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
+           st.session_state.hangman_tries = 6
+           st.session_state.hangman_used = []
+           st.session_state.hangman_game_over = False
+    
+           st.session_state.page = 'home'
+           st.rerun()
+            
+    st.markdown("</div>", unsafe_allow_html=True)
 
     init_hangman()
 
+    
     # cek menang
     if '_' not in st.session_state.hangman_guessed and st.session_state.hangman_tries > 0:
         st.session_state.hangman_game_over = True
