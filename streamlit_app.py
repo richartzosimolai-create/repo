@@ -49,6 +49,7 @@ st.markdown("""
 }
     
     .game-card { 
+        color: #000000;
         padding: 20px; 
         border-radius: 20px; 
         background: white; 
