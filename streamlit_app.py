@@ -97,11 +97,11 @@ st.markdown("""
 
 GAMES = [
     {'id': 'hangman', 'name': 'Hangman', 'icon': '🪢', 'color': '#4CAF50', 'status': 'Active'},
-    {'id': 'math', 'name': 'Quiz Matematika', 'icon': '📝', 'color': '#FF9800', 'status': 'Coming Soon'},
-    {'id': 'vocab', 'name': 'Kosakata', 'icon': '📚', 'color': '#2196F3', 'status': 'Coming Soon'},
-    {'id': 'science', 'name': 'Quiz Sains', 'icon': '🔬', 'color': '#9C27B0', 'status': 'Coming Soon'},
-    {'id': 'history', 'name': 'Quiz Sejarah', 'icon': '🏛️', 'color': '#F44336', 'status': 'Coming Soon'},
-    {'id': 'geo', 'name': 'Quiz Geografi', 'icon': '🌍', 'color': '#00BCD4', 'status': 'Coming Soon'},
+    {'id': 'math', 'name': 'Victor', 'icon': '📝', 'color': '#FF9800', 'status': 'Coming Soon'},
+    {'id': 'vocab', 'name': 'First', 'icon': '📚', 'color': '#2196F3', 'status': 'Coming Soon'},
+    {'id': 'science', 'name': 'wong', 'icon': '🔬', 'color': '#9C27B0', 'status': 'Coming Soon'},
+    {'id': 'history', 'name': 'yapping', 'icon': '🏛️', 'color': '#F44336', 'status': 'Coming Soon'},
+    {'id': 'geo', 'name': '67', 'icon': '🌍', 'color': '#00BCD4', 'status': 'Coming Soon'},
 ]
 
 WORDS = ['victor']
