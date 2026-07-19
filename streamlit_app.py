@@ -2,20 +2,52 @@ import streamlit as st
 import random
 import time
 
-st.set_page_config(page_title="Ms Ocha Class", page_icon="🎮", layout="wide")
+st.set_page_config(page_title="Ms Ocha Class", page_icon="🎮MS Ocha Class", layout="wide")
 
 st.markdown("""
     <style>
-    .stButton > button { 
-        width: 100%; 
-        height: 60px; 
-        font-size: 20px; 
-        border-radius: 50%; 
-        transition: all 0.3s;
-    }
-    .stButton > button:hover {
-        transform: scale(1.05);
-    }
+   
+.stButton > button { 
+    width: 100%; 
+    height: 60px; 
+    font-size: 20px; 
+    border-radius: 12px;  /* ← sudut melengkung, bukan 50% */
+    transition: all 0.3s;
+}
+
+
+.letter-btn {
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.letter-btn:hover:not(:disabled) {
+    background: #667eea;
+    color: white;
+    transform: scale(1.05);
+}
+.letter-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.letter-btn.correct {
+    background: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+.letter-btn.wrong {
+    background: #f44336;
+    color: white;
+    border-color: #f44336;
+}
+    
     .game-card { 
         padding: 20px; 
         border-radius: 20px; 
@@ -155,21 +187,20 @@ def play_hangman():
 
     col1, col2, col3 = st.columns([1, 5, 1])
     with col2:
-        if st.button("⬅️ Kembali", use_container_width=True):
-           st.session_state.hangman_word = random.choice(WORDS)
-           st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
-           st.session_state.hangman_tries = 6
-           st.session_state.hangman_used = []
-           st.session_state.hangman_game_over = False
+        if st.button("⬅️ Back", use_container_width=True):
+            st.session_state.hangman_word = random.choice(WORDS)
+            st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
+            st.session_state.hangman_tries = 6
+            st.session_state.hangman_used = []
+            st.session_state.hangman_game_over = False
     
-           st.session_state.page = 'home'
-           st.rerun()
+            st.session_state.page = 'home'
+            st.rerun()
             
     st.markdown("</div>", unsafe_allow_html=True)
 
     init_hangman()
 
-    
     # cek menang
     if '_' not in st.session_state.hangman_guessed and st.session_state.hangman_tries > 0:
         st.session_state.hangman_game_over = True
@@ -242,19 +273,19 @@ def play_hangman():
     for i, letter in enumerate(letters):
         col = cols[i % 7]
         disabled = letter in st.session_state.hangman_used or st.session_state.hangman_tries == 0 or '_' not in st.session_state.hangman_guessed
-
+        
         if col.button(letter.upper(), key=f"letter_{letter}", disabled=disabled, use_container_width=True):
             st.session_state.hangman_used.append(letter)
-
+            
             if letter in st.session_state.hangman_word:
                 for idx, char in enumerate(st.session_state.hangman_word):
                     if char == letter:
                         st.session_state.hangman_guessed[idx] = letter
-                st.success("✅ Correct!")
+                st.success("✅ correct!")
             else:
                 st.session_state.hangman_tries -= 1
-                st.error("❌ Incorrect! -1 ❤️ ")
-
+                st.error("❌ incorrect! -1❤️ ")
+            
             time.sleep(0.3)
             st.rerun()
 
