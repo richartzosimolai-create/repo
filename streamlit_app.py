@@ -94,7 +94,7 @@ st.markdown("""
         white-space: pre;
     }
 
-    /* Tombol Back panah di pojok kanan bawah SEJAJAR Manage App */
+    /* Tombol Back bulat panah di pojok kanan bawah */
     .back-btn-container {
         position: fixed;
         bottom: 20px;
@@ -211,7 +211,7 @@ def init_hangman():
         st.session_state.hangman_game_over = False
 
 def play_hangman():
-    # ===== TOMBOL BACK PANAH DI POJOK KANAN BAWAH =====
+    # ===== TOMBOL BACK BULAT PANAH DI POJOK KANAN BAWAH =====
     st.markdown("""
         <div class="back-btn-container">
     """, unsafe_allow_html=True)
