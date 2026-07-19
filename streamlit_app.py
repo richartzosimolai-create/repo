@@ -94,10 +94,10 @@ st.markdown("""
         white-space: pre;
     }
 
-    /* Tombol Back panah di pojok kanan bawah */
+    /* Tombol Back panah di pojok kanan bawah SEJAJAR Manage App */
     .back-btn-container {
         position: fixed;
-        bottom: 80px;
+        bottom: 20px;
         right: 20px;
         z-index: 999;
     }
