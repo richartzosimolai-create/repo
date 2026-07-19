@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import time
 
-st.set_page_config(page_title="Ms Ocha Class", page_icon="🎮MS Ocha Class", layout="wide")
+st.set_page_config(page_title="Ms Ocha Class", page_icon="🎮Ms Ocha Class", layout="wide")
 
 st.markdown("""
     <style>
@@ -92,6 +92,28 @@ st.markdown("""
         border-radius: 10px;
         margin: 10px 0;
         white-space: pre;
+    }
+
+    /* Tombol Back bulat di samping huruf Z */
+    .stButton > button[key="back_btn_bottom"] {
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 50% !important;
+        background: #667eea !important;
+        color: white !important;
+        font-size: 18px !important;
+        font-weight: bold !important;
+        border: none !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+    .stButton > button[key="back_btn_bottom"]:hover {
+        background: #764ba2 !important;
+        transform: scale(1.1) !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -186,20 +208,6 @@ def init_hangman():
 def play_hangman():
     st.title("🔤 Hangman")
 
-    col1, col2, col3 = st.columns([1, 5, 1])
-    with col2:
-        if st.button("⬅️ Back", use_container_width=True):
-            st.session_state.hangman_word = random.choice(WORDS)
-            st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
-            st.session_state.hangman_tries = 6
-            st.session_state.hangman_used = []
-            st.session_state.hangman_game_over = False
-    
-            st.session_state.page = 'home'
-            st.rerun()
-            
-    st.markdown("</div>", unsafe_allow_html=True)
-
     init_hangman()
 
     # cek menang
@@ -268,9 +276,11 @@ def play_hangman():
     st.markdown("---")
     st.markdown("### 🔤 Choose a letter")
 
-    cols = st.columns(7)
+    # Buat 8 kolom: 7 untuk huruf + 1 untuk tombol Back
+    cols = st.columns(8)
     letters = 'abcdefghijklmnopqrstuvwxyz'
 
+    # Tampilkan huruf A-Z di 7 kolom pertama
     for i, letter in enumerate(letters):
         col = cols[i % 7]
         disabled = letter in st.session_state.hangman_used or st.session_state.hangman_tries == 0 or '_' not in st.session_state.hangman_guessed
@@ -288,6 +298,17 @@ def play_hangman():
                 st.error("❌ incorrect! -1❤️ ")
             
             time.sleep(0.3)
+            st.rerun()
+
+    # Kolom ke-8 (paling kanan) untuk tombol Back BULAT
+    with cols[7]:
+        if st.button("✕", key="back_btn_bottom", use_container_width=True):
+            st.session_state.hangman_word = random.choice(WORDS)
+            st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
+            st.session_state.hangman_tries = 6
+            st.session_state.hangman_used = []
+            st.session_state.hangman_game_over = False
+            st.session_state.page = 'home'
             st.rerun()
 
 def home_page():
