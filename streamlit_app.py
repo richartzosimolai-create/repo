@@ -94,24 +94,29 @@ st.markdown("""
         white-space: pre;
     }
 
-    /* Tombol Back bulat di samping huruf Z */
-    .stButton > button[key="back_btn_bottom"] {
-        width: 50px !important;
-        height: 50px !important;
+    /* Tombol Back panah di pojok kanan bawah */
+    .back-btn-container {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        z-index: 999;
+    }
+    .back-btn-container .stButton > button {
+        width: 60px !important;
+        height: 60px !important;
         border-radius: 50% !important;
         background: #667eea !important;
         color: white !important;
-        font-size: 18px !important;
+        font-size: 28px !important;
         font-weight: bold !important;
         border: none !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+        padding: 0 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        margin: 0 auto !important;
-        padding: 0 !important;
     }
-    .stButton > button[key="back_btn_bottom"]:hover {
+    .back-btn-container .stButton > button:hover {
         background: #764ba2 !important;
         transform: scale(1.1) !important;
     }
@@ -206,6 +211,22 @@ def init_hangman():
         st.session_state.hangman_game_over = False
 
 def play_hangman():
+    # ===== TOMBOL BACK PANAH DI POJOK KANAN BAWAH =====
+    st.markdown("""
+        <div class="back-btn-container">
+    """, unsafe_allow_html=True)
+    if st.button("⬅️", key="back_btn_bottom"):
+        st.session_state.hangman_word = random.choice(WORDS)
+        st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
+        st.session_state.hangman_tries = 6
+        st.session_state.hangman_used = []
+        st.session_state.hangman_game_over = False
+        st.session_state.page = 'home'
+        st.rerun()
+    st.markdown("""
+        </div>
+    """, unsafe_allow_html=True)
+
     st.title("🔤 Hangman")
 
     init_hangman()
@@ -276,11 +297,9 @@ def play_hangman():
     st.markdown("---")
     st.markdown("### 🔤 Choose a letter")
 
-    # Buat 8 kolom: 7 untuk huruf + 1 untuk tombol Back
-    cols = st.columns(8)
+    cols = st.columns(7)
     letters = 'abcdefghijklmnopqrstuvwxyz'
 
-    # Tampilkan huruf A-Z di 7 kolom pertama
     for i, letter in enumerate(letters):
         col = cols[i % 7]
         disabled = letter in st.session_state.hangman_used or st.session_state.hangman_tries == 0 or '_' not in st.session_state.hangman_guessed
@@ -298,17 +317,6 @@ def play_hangman():
                 st.error("❌ incorrect! -1❤️ ")
             
             time.sleep(0.3)
-            st.rerun()
-
-    # Kolom ke-8 (paling kanan) untuk tombol Back BULAT
-    with cols[7]:
-        if st.button("✕", key="back_btn_bottom", use_container_width=True):
-            st.session_state.hangman_word = random.choice(WORDS)
-            st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
-            st.session_state.hangman_tries = 6
-            st.session_state.hangman_used = []
-            st.session_state.hangman_game_over = False
-            st.session_state.page = 'home'
             st.rerun()
 
 def home_page():
