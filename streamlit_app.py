@@ -11,7 +11,7 @@ st.markdown("""
     width: 100%; 
     height: 60px; 
     font-size: 20px; 
-    border-radius: 12px;  
+    border-radius: 12px;  /* ← sudut melengkung, bukan 50% */
     transition: all 0.3s;
 }
 
@@ -49,7 +49,7 @@ st.markdown("""
 }
     
     .game-card { 
-        color: #000000;
+        color:#000000;
         padding: 20px; 
         border-radius: 20px; 
         background: white; 
@@ -93,33 +93,6 @@ st.markdown("""
         margin: 10px 0;
         white-space: pre;
     }
-
-    /* Tombol Back bulat panah di pojok kanan bawah */
-    .back-btn-container {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 999;
-    }
-    .back-btn-container .stButton > button {
-        width: 60px !important;
-        height: 60px !important;
-        border-radius: 50% !important;
-        background: #667eea !important;
-        color: white !important;
-        font-size: 28px !important;
-        font-weight: bold !important;
-        border: none !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-        padding: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-    .back-btn-container .stButton > button:hover {
-        background: #764ba2 !important;
-        transform: scale(1.1) !important;
-    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -127,8 +100,8 @@ GAMES = [
     {'id': 'hangman', 'name': 'Hangman', 'icon': '🪢', 'color': '#4CAF50', 'status': 'Active'},
     {'id': 'math', 'name': 'Victor', 'icon': '📝', 'color': '#FF9800', 'status': 'Coming Soon'},
     {'id': 'vocab', 'name': 'First', 'icon': '📚', 'color': '#2196F3', 'status': 'Coming Soon'},
-    {'id': 'science', 'name': 'wong', 'icon': '🔬', 'color': '#9C27B0', 'status': 'Coming Soon'},
-    {'id': 'history', 'name': 'yapping', 'icon': '🏛️', 'color': '#F44336', 'status': 'Coming Soon'},
+    {'id': 'science', 'name': 'Wong', 'icon': '🔬', 'color': '#9C27B0', 'status': 'Coming Soon'},
+    {'id': 'history', 'name': 'Yapping', 'icon': '🏛️', 'color': '#F44336', 'status': 'Coming Soon'},
     {'id': 'geo', 'name': '67', 'icon': '🌍', 'color': '#00BCD4', 'status': 'Coming Soon'},
 ]
 
@@ -211,23 +184,21 @@ def init_hangman():
         st.session_state.hangman_game_over = False
 
 def play_hangman():
-    # ===== TOMBOL BACK BULAT PANAH DI POJOK KANAN BAWAH =====
-    st.markdown("""
-        <div class="back-btn-container">
-    """, unsafe_allow_html=True)
-    if st.button("⬅️", key="back_btn_bottom"):
-        st.session_state.hangman_word = random.choice(WORDS)
-        st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
-        st.session_state.hangman_tries = 6
-        st.session_state.hangman_used = []
-        st.session_state.hangman_game_over = False
-        st.session_state.page = 'home'
-        st.rerun()
-    st.markdown("""
-        </div>
-    """, unsafe_allow_html=True)
-
     st.title("🔤 Hangman")
+
+    col1, col2, col3 = st.columns([1, 5, 1])
+    with col2:
+        if st.button("⬅️ Kembali", use_container_width=True):
+            st.session_state.hangman_word = random.choice(WORDS)
+            st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
+            st.session_state.hangman_tries = 6
+            st.session_state.hangman_used = []
+            st.session_state.hangman_game_over = False
+    
+            st.session_state.page = 'home'
+            st.rerun()
+            
+    st.markdown("</div>", unsafe_allow_html=True)
 
     init_hangman()
 
