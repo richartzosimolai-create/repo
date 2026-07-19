@@ -188,7 +188,7 @@ def play_hangman():
 
     col1, col2, col3 = st.columns([1, 5, 1])
     with col2:
-        if st.button("⬅️ Kembali", use_container_width=True):
+        if st.button("⬅️ Back", use_container_width=True):
             st.session_state.hangman_word = random.choice(WORDS)
             st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
             st.session_state.hangman_tries = 6
