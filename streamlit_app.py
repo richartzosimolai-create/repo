@@ -97,7 +97,7 @@ st.markdown("""
     /* Tombol Back bulat panah di pojok kanan bawah */
     .back-btn-container {
         position: fixed;
-        bottom: 100px;
+        bottom: 200px;
         right: 20px;
         z-index: 999;
     }
