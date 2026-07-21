@@ -94,20 +94,20 @@ st.markdown("""
         white-space: pre;
     }
 
-    /* Tombol Back bulat panah di pojok kanan bawah */
+    /* Tombol Back cross di pojok kanan atas */
     .back-btn-container {
         position: fixed;
-        bottom: 200px;
+        top: 20px;
         right: 20px;
         z-index: 999;
     }
     .back-btn-container .stButton > button {
-        width: 60px !important;
-        height: 60px !important;
+        width: 50px !important;
+        height: 50px !important;
         border-radius: 50% !important;
         background: #667eea !important;
         color: white !important;
-        font-size: 28px !important;
+        font-size: 20px !important;
         font-weight: bold !important;
         border: none !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
@@ -211,11 +211,11 @@ def init_hangman():
         st.session_state.hangman_game_over = False
 
 def play_hangman():
-    # ===== TOMBOL BACK BULAT PANAH DI POJOK KANAN BAWAH =====
+    # ===== TOMBOL BACK CROSS DI POJOK KANAN ATAS =====
     st.markdown("""
         <div class="back-btn-container">
     """, unsafe_allow_html=True)
-    if st.button("⬅️", key="back_btn_bottom"):
+    if st.button("✕", key="back_btn_bottom"):
         st.session_state.hangman_word = random.choice(WORDS)
         st.session_state.hangman_guessed = ['_'] * len(st.session_state.hangman_word)
         st.session_state.hangman_tries = 6
