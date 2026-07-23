@@ -149,22 +149,25 @@ def init_hangman():
         st.session_state.hangman_game_over = False
 
 
-# gambar hangman
+# hangman
 def draw_hangman(tries):
     width, height = 200, 250
-    img = Image.new('RGB', (width, height), color='black')
+    
+    # background
+    img = Image.new('RGBA', (width, height), color=(255, 255, 255, 0))
     draw = ImageDraw.Draw(img)
     
-    color = 'black'
+    # warna garis
+    color = '#667eea'  
     line_width = 3
     
-    # tiang gantung
+    # tiang
     draw.line([(30, 220), (170, 220)], fill=color, width=line_width)
     draw.line([(100, 220), (100, 30)], fill=color, width=line_width)
     draw.line([(100, 30), (140, 30)], fill=color, width=line_width)
     draw.line([(140, 30), (140, 50)], fill=color, width=line_width)
     
-    # hangmannya
+    # hangmannuya
     if tries <= 5:
         draw.ellipse([(125, 50), (155, 80)], outline=color, width=line_width)
     if tries <= 4:
@@ -180,9 +183,8 @@ def draw_hangman(tries):
     
     return img
 
-
 def play_hangman():
-    # ===== TOMBOL BACK CROSS DI POJOK KANAN ATAS =====
+    
     st.markdown("""
         <div class="back-btn-container">
     """, unsafe_allow_html=True)
