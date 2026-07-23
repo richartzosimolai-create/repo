@@ -152,7 +152,7 @@ def init_hangman():
 # gambar hangman
 def draw_hangman(tries):
     width, height = 200, 250
-    img = Image.new('RGB', (width, height), color='white')
+    img = Image.new('RGB', (width, height), color='black')
     draw = ImageDraw.Draw(img)
     
     color = 'black'
