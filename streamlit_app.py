@@ -1,6 +1,7 @@
 import streamlit as st
 import random
 import time
+from PIL import Image, ImageDraw
 
 st.set_page_config(page_title="Ms Ocha Class", page_icon="🎮", layout="wide")
 
@@ -134,69 +135,6 @@ GAMES = [
 
 WORDS = ['victor']
 
-HANGMAN_PICS = [
-    """
-       _______
-      |/      |
-      |      
-      |      
-      |      
-      |      
-      |
-    __|_________
-    """,
-    """
-       _______
-      |/      |
-      |      (_)
-      |      
-      |      
-      |      
-      |
-    __|_________
-    """,
-    """
-       _______
-      |/      |
-      |      (_)
-      |       |
-      |       |
-      |      
-      |
-    __|_________
-    """,
-    """
-       _______
-      |/      |
-      |      (_)
-      |      /|
-      |       |
-      |      
-      |
-    __|_________
-    """,
-    """
-       _______
-      |/      |
-      |      (_)
-      |      /|\\
-      |       |
-      |      
-      |
-    __|_________
-    """,
-    """
-       _______
-      |/      |
-      |      (_)
-      |      /|\\
-      |       |
-      |      / 
-      |
-    __|_________
-    """,
-]
-
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 if 'game' not in st.session_state:
@@ -209,6 +147,39 @@ def init_hangman():
         st.session_state.hangman_tries = 6
         st.session_state.hangman_used = []
         st.session_state.hangman_game_over = False
+
+
+# gambar hangman
+def draw_hangman(tries):
+    width, height = 200, 250
+    img = Image.new('RGB', (width, height), color='white')
+    draw = ImageDraw.Draw(img)
+    
+    color = 'black'
+    line_width = 3
+    
+    # tiang gantung
+    draw.line([(30, 220), (170, 220)], fill=color, width=line_width)
+    draw.line([(100, 220), (100, 30)], fill=color, width=line_width)
+    draw.line([(100, 30), (140, 30)], fill=color, width=line_width)
+    draw.line([(140, 30), (140, 50)], fill=color, width=line_width)
+    
+    # hangmannya
+    if tries <= 5:
+        draw.ellipse([(125, 50), (155, 80)], outline=color, width=line_width)
+    if tries <= 4:
+        draw.line([(140, 80), (140, 130)], fill=color, width=line_width)
+    if tries <= 3:
+        draw.line([(140, 95), (115, 115)], fill=color, width=line_width)
+    if tries <= 2:
+        draw.line([(140, 95), (165, 115)], fill=color, width=line_width)
+    if tries <= 1:
+        draw.line([(140, 130), (115, 160)], fill=color, width=line_width)
+    if tries <= 0:
+        draw.line([(140, 130), (165, 160)], fill=color, width=line_width)
+    
+    return img
+
 
 def play_hangman():
     # ===== TOMBOL BACK CROSS DI POJOK KANAN ATAS =====
@@ -274,11 +245,9 @@ def play_hangman():
     col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.markdown("### 🎨  Hangman")
-        index = 6 - st.session_state.hangman_tries
-        if index > 5:
-            index = 5
-        st.code(HANGMAN_PICS[index], language='text')
+        st.markdown("### 🎨 Hangman")
+        img = draw_hangman(st.session_state.hangman_tries)
+        st.image(img, use_container_width=False)
 
     with col2:
         st.markdown("### 📝 The word:")
